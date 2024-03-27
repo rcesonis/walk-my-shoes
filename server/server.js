@@ -1,28 +1,24 @@
-const passport = require("passport");
 const express = require("express");
+const cors = require("cors");
+const userRoutes = require("./routes/api/user");
+
 const app = express();
-require("./passportConfig")(passport);
-const { User } = require("./models/user");
-
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const port = 3000;
 
-app.post(
-  "/auth/signup",
-  passport.authenticate("local-signup", { session: false }),
-  (req, res, next) => {
-    res.json({
-      user: req.user,
-    });
-  }
-);
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
 
-app.post(
-  "/auth/login",
-  passport.authenticate("local-login", { session: false }),
-  (req, res, next) => {
-    res.json({ user: req.user });
-  }
-);
+// User routes
+app.use("/api/users", userRoutes);
 
-app.listen(3000, () => console.log("Listening on port 3000"));
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Server error", error: err });
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}/`);
+});
