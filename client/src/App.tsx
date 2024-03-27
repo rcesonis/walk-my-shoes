@@ -1,4 +1,4 @@
-import Login from './components/pages/Login';
+import Login from './components/pages/Login/Login';
 import 'tailwindcss/tailwind.css';
 import './App.css'
 
