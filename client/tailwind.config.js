@@ -5,7 +5,17 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        mainBlack: "#040404",
+        customBlue: "#1868ed",
+        customLightBlue:"#4285F4",
+        customGray: "#BCBACF",
+      },
+      backgroundImage: {
+        'bg-image': "url('/assets/img/mountains')"
+      }
+    },
   },
   plugins: [],
 }

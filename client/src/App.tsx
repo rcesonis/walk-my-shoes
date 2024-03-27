@@ -1,3 +1,4 @@
+import Login from './components/pages/Login';
 import 'tailwindcss/tailwind.css';
 import './App.css'
 
@@ -5,6 +6,7 @@ function App() {
 
   return (
     <>
+    <Login />
     </>
   )
 }
