@@ -2,6 +2,7 @@ const passport = require("passport");
 const express = require("express");
 const app = express();
 require("./passportConfig")(passport);
+const { User } = require("./models/user");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

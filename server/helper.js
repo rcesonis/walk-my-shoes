@@ -14,13 +14,9 @@ const createUser = async (email, password, name) => {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  if (!name) {
-    throw new Error("Name is required for user creation");
-  }
-
   const data = await client.query(
     "INSERT INTO users(email, password, name) VALUES ($1, $2, $3) RETURNING id, email, password",
-    [email, hash, name]
+    [email, hash, name || ""] // Set name to an empty string if not provided
   );
 
   if (data.rowCount == 0) return false;

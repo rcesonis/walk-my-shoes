@@ -8,19 +8,16 @@ module.exports = (passport) => {
       {
         usernameField: "email",
         passwordField: "password",
-        passReqToCallback: true, // Add this option to pass 'req' to the callback
       },
-      async (req, email, password, done) => {
+      async (email, password, done) => {
         try {
-          const name = req.body.name; // Assuming 'name' is sent in the request body
-
           const userExists = await emailExists(email);
 
           if (userExists) {
             return done(null, false);
           }
 
-          const user = await createUser(email, password, name);
+          const user = await createUser(email, password);
           return done(null, user);
         } catch (error) {
           done(error);
