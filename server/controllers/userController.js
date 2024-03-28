@@ -24,22 +24,6 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
-    res.json({ message: "User authenticated successfully", user });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error", error: error.message });
-  }
+exports.login = (req, res) => {
+  res.json({ message: "Logged in successfully", user: req.user });
 };
