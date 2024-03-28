@@ -1,9 +1,16 @@
-type Props = {}
+import React from 'react';
 
-const SignupModal = (props: Props) => {
-  return (
-    <div>SignupModal</div>
-  )
+type Props = {
+  onClose: () => void;
 }
 
-export default SignupModal
+const SignupModal: React.FC<Props> = ({ onClose }) => { 
+  return (
+    <div>
+      <div>SignupModal</div>
+      <button onClick={onClose}>Close</button> 
+    </div>
+  );
+};
+
+export default SignupModal;
