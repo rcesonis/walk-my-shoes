@@ -1,14 +1,18 @@
-import Login from './components/pages/Login/Login';
-import 'tailwindcss/tailwind.css';
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
+import Login from "./components/pages/Login/Login";
+import Main from "./components/pages/Main/Main";
+import "tailwindcss/tailwind.css";
+import "./App.css";
 
 function App() {
-
   return (
-    <>
-    <Login />
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/main" element={<Main />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

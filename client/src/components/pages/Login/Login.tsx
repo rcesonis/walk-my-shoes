@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import google from "../../../assets/icons/google.svg";
 import bgImage from "../../../assets/img/bg-image.jpg";
 import SignupModal from "./components/SignupModal";
 
-const Login = () => {
-
+const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSignupModal = () => {
     setIsSignupModalOpen(!isSignupModalOpen);
@@ -24,7 +25,7 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
-        console.log("Login successful");
+        navigate("main");
       } else {
         setError("Invalid username or password");
       }
@@ -37,7 +38,7 @@ const Login = () => {
   return (
     <div
       className="flex items-center justify-center min-h-screen bg-cover bg-center"
-      style={{backgroundImage: `url(${bgImage})`}}
+      style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="relative flex flex-col md:flex-row m-6 space-y-10 rounded-2xl bg-mainBlack bg-opacity-70">
         <div className="p-8 md:p-20 flex flex-col justify-center">
@@ -54,7 +55,7 @@ const Login = () => {
             <hr className="w-64 h-px my-8 border-0 bg-gray-700" />
             <span
               className="absolute px-3 font-medium  text-white bg-mainBlack rounded"
-              style={{left: "50%", transform: "translateX(-50%)"}}
+              style={{ left: "50%", transform: "translateX(-50%)" }}
             >
               or
             </span>
@@ -72,12 +73,18 @@ const Login = () => {
               placeholder="Enter your password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="bg-white hover:bg-gray-500 active:bg-white font-medium text-mainBlack text-xs py-3 rounded transition duration-200" onClick={handleLogin}>
+            <button
+              className="bg-white hover:bg-gray-500 active:bg-white font-medium text-mainBlack text-xs py-3 rounded transition duration-200"
+              onClick={handleLogin}
+            >
               Continue
             </button>
           </div>
-          {error && <span className="pt-2 text-red-500">{error}</span>}
-          <span className="pt-12 text-white text-sm" onClick={toggleSignupModal}>
+          <span className="pt-2 text-red-500 h-4">{error}</span>
+          <span
+            className="pt-12 text-white text-sm"
+            onClick={toggleSignupModal}
+          >
             Don't have an account? Sign up
           </span>
         </div>
