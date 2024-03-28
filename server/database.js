@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const config = require("./sequelize/config/config.json");
+const config = require("./sequelize/config/config");
 
 const env = process.env.NODE_ENV || "development";
 const dbConfig = config[env];

@@ -26,7 +26,6 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Use express-session middleware
 app.use(
