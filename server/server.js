@@ -7,6 +7,8 @@ const session = require("express-session");
 require("dotenv").config();
 
 const userRoutes = require("./routes/api/user");
+const postRoutes = require("./routes/api/post");
+
 const ensureAuthenticated = require("./middleware/auth");
 const errorHandler = require("./middleware/error");
 
@@ -50,6 +52,9 @@ app.get("/", (req, res) => {
 
 // User routes
 app.use("/api/users", userRoutes);
+
+// Post routes
+app.use("/api/post", postRoutes);
 
 // Error handling middleware
 app.use(errorHandler);
