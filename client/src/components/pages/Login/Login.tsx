@@ -4,11 +4,36 @@ import bgImage from "../../../assets/img/bg-image.jpg";
 import SignupModal from "./components/SignupModal";
 
 const Login = () => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
   const toggleSignupModal = () => {
     setIsSignupModalOpen(!isSignupModalOpen);
   };
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+        console.log("Login successful");
+      } else {
+        setError("Invalid username or password");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("An error occurred while logging in");
+    }
+  };
+
   return (
     <div
       className="flex items-center justify-center min-h-screen bg-cover bg-center"
@@ -39,16 +64,19 @@ const Login = () => {
               type="text"
               className="rounded pl-3 py-2 bg-mainBlack border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-gray-700"
               placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               type="password"
               className="rounded pl-3 py-2 bg-mainBlack border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-gray-700"
               placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="bg-white hover:bg-gray-500 active:bg-white font-medium text-mainBlack text-xs py-3 rounded transition duration-200">
+            <button className="bg-white hover:bg-gray-500 active:bg-white font-medium text-mainBlack text-xs py-3 rounded transition duration-200" onClick={handleLogin}>
               Continue
             </button>
           </div>
+          {error && <span className="pt-2 text-red-500">{error}</span>}
           <span className="pt-12 text-white text-sm" onClick={toggleSignupModal}>
             Don't have an account? Sign up
           </span>
