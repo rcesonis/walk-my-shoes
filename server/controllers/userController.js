@@ -3,7 +3,8 @@ const User = require("../sequelize/models/user");
 
 exports.register = async (req, res) => {
   try {
-    const { username, password, email } = req.body;
+    const { name, password, email } = req.body;
+    console.log(req.body);
 
     let user = await User.findOne({ where: { email } });
     if (user) {
@@ -11,14 +12,15 @@ exports.register = async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     user = await User.create({
-      username,
+      name,
       password: hashedPassword,
       email,
     });
 
     res.status(201).json({ message: "User registered successfully", user });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    console.error(error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
