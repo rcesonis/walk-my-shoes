@@ -10,7 +10,7 @@ class Post extends Model {
    */
   static associate(models) {
     // define association here
-    this.belongsTo(models.User, { as: "user", foreignKey: "userId" });
+    models.Post.belongsTo(models.User, { foreignKey: "userId" });
   }
 }
 Post.init(
@@ -18,6 +18,7 @@ Post.init(
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     isPublic: DataTypes.BOOLEAN,
+    userId: DataTypes.INTEGER,
   },
   {
     sequelize,

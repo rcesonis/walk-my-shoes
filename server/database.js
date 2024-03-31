@@ -1,15 +1,14 @@
-require("dotenv").config(); // Load environment variables
 const Sequelize = require("sequelize");
 const config = require("./config");
 
 // Determine environment (defaults to "development")
-const dbConfig = config;
+const dbConfig = config.database;
 
 // Create Sequelize instance based on configuration
 let sequelize;
-console.log(dbConfig);
-if (dbConfig.database.url) {
-  sequelize = new Sequelize(dbConfig.database.url, {
+
+if (dbConfig.url) {
+  sequelize = new Sequelize(dbConfig.url, {
     dialect: dbConfig.dialect,
   });
 } else {
@@ -20,19 +19,6 @@ if (dbConfig.database.url) {
     dbConfig
   );
 }
-
-// let sequelize;
-// console.log(config);
-// if (config.database?.url) {
-//   sequelize = new Sequelize(config.database?.url, config);
-// } else {
-//   sequelize = new Sequelize(
-//     config.database,
-//     config.username,
-//     config.password,
-//     config
-//   );
-// }
 
 // Test the database connection
 async function testDatabaseConnection() {

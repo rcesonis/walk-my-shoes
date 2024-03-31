@@ -9,7 +9,7 @@ class User extends Model {
    */
   static associate(models) {
     // define association here
-    this.hasMany(models.Post, { as: "posts", foreignKey: "userId" });
+    models.User.hasMany(models.Post, { as: "posts", foreignKey: "userId" });
   }
 }
 User.init(

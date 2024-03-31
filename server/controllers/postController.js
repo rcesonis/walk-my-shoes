@@ -26,8 +26,9 @@ exports.getPrivatePosts = async (req, res) => {
 // Create a new post
 exports.createPost = async (req, res) => {
   const { title, content, isPublic } = req.body;
+  console.log(req.user.id);
   const userId = req.user.id;
-  // Validate input
+
   if (!title || !content || isPublic === undefined) {
     return res
       .status(400)
@@ -35,7 +36,12 @@ exports.createPost = async (req, res) => {
   }
 
   try {
-    const post = await Post.create({ title, content, isPublic, userId });
+    const post = await Post.create({
+      title,
+      content,
+      isPublic,
+      userId,
+    });
     res.status(201).json(post);
   } catch (error) {
     logger.error("Error creating post:", error);

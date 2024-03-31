@@ -1,6 +1,5 @@
 const path = require("path");
 require("dotenv").config();
-// Define configuration object
 const config = {
   development: {
     database: {
