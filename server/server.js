@@ -2,19 +2,22 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const passport = require("./config/passport");
+const passport = require("passport");
 const session = require("express-session");
 require("dotenv").config();
 
 const userRoutes = require("./routes/api/user");
 const postRoutes = require("./routes/api/post");
 
+const ensureAuthenticated = require("./middleware/auth");
 const errorHandler = require("./middleware/error");
 
 const app = express();
 
 // Helmet helps you secure your Express apps by setting various HTTP headers
 app.use(helmet());
+
+// Enable CORS with various options
 app.use(cors());
 
 // Apply rate limit to all requests
@@ -39,6 +42,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+require("./config/passport");
+
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
@@ -49,8 +54,9 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 
 // Post routes
-app.use("/api/posts", postRoutes);
+app.use("/api/post", postRoutes);
 
+// Error handling middleware
 app.use(errorHandler);
 
 app.listen(port, () => {

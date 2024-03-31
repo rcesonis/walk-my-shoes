@@ -1,10 +1,9 @@
 const Sequelize = require("sequelize");
-const config = require("./config");
+const config = require("./sequelize/config/config.json");
 
 // Determine environment (defaults to "development")
 const dbConfig = config.database;
 
-// Create Sequelize instance based on configuration
 let sequelize;
 
 if (dbConfig.url) {

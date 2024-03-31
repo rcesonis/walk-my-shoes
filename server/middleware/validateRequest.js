@@ -1,13 +1,7 @@
 function validatePostRequest(req, res, next) {
-  const { title, content } = req.body;
-
-  // Check if title or content is missing or empty
-  if (!title || !content || title.trim() === "" || content.trim() === "") {
-    return res
-      .status(400)
-      .json({ error: "Title and content are required and cannot be empty" });
+  if (!req.body.title || !req.body.content) {
+    return res.status(400).json({ message: "Title and content are required" });
   }
-  // Proceed to the next middleware if validation passes
   next();
 }
 

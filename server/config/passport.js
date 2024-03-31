@@ -3,8 +3,6 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const User = require("../sequelize/models/user");
 
-const { hashPassword } = require("./passwordUtils");
-
 passport.use(
   new LocalStrategy(
     {
@@ -15,11 +13,10 @@ passport.use(
       try {
         const user = await User.findOne({ where: { email } });
         if (!user) {
-          return done(null, false, { message: "Incorrect email or password." });
+          return done(null, false, { message: "Incorrect email." });
         }
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-          return done(null, false, { message: "Incorrect email or password." });
+        if (!(await bcrypt.compare(password, user.password))) {
+          return done(null, false, { message: "Incorrect password." });
         }
         return done(null, user);
       } catch (error) {
@@ -28,7 +25,6 @@ passport.use(
     }
   )
 );
-
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -41,5 +37,3 @@ passport.deserializeUser(async (id, done) => {
     done(error);
   }
 });
-
-module.exports = passport;
