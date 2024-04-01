@@ -1,11 +1,10 @@
 const bcrypt = require("bcryptjs");
 const User = require("../sequelize/models/user");
+const logger = require("../config/logger");
 
 exports.register = async (req, res) => {
   try {
     const { name, password, email } = req.body;
-    console.log(req.body);
-
     let user = await User.findOne({ where: { email } });
     if (user) {
       return res.status(400).json({ message: "User already exists" });
@@ -19,7 +18,7 @@ exports.register = async (req, res) => {
 
     res.status(201).json({ message: "User registered successfully", user });
   } catch (error) {
-    console.error(error);
+    logger.error("Register error:", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
