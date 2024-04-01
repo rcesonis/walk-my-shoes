@@ -1,6 +1,7 @@
 "use strict";
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../database");
+
 class User extends Model {
   /**
    * Helper method for defining associations.
@@ -12,11 +13,13 @@ class User extends Model {
     models.User.hasMany(models.Post, { as: "posts", foreignKey: "userId" });
   }
 }
+
 User.init(
   {
     name: DataTypes.STRING,
     password: DataTypes.STRING,
     email: DataTypes.STRING,
+    googleId: DataTypes.STRING,
   },
   {
     sequelize,
