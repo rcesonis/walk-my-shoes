@@ -20,10 +20,8 @@ exports.getPrivatePosts = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   const { title, content, isPublic } = req.body;
-  console.log(req.user.id);
   const userId = req.user.id;
 
-  // Validate the data
   if (!title || !content || isPublic === undefined) {
     return res.status(400).json({ error: "Missing required fields" });
   }

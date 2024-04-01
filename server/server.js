@@ -13,11 +13,7 @@ const ensureAuthenticated = require("./middleware/auth");
 const errorHandler = require("./middleware/error");
 
 const app = express();
-
-// Helmet helps you secure your Express apps by setting various HTTP headers
 app.use(helmet());
-
-// Enable CORS with various options
 app.use(cors());
 
 // Apply rate limit to all requests

@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
-const config = require("./sequelize/config/config.json");
+const config = require("./config/index");
+const logger = require("./config/logger");
 
 // Determine environment (defaults to "development")
 const dbConfig = config.database;
@@ -23,9 +24,9 @@ if (dbConfig.url) {
 async function testDatabaseConnection() {
   try {
     await sequelize.authenticate();
-    console.log("Database connection has been established successfully.");
+    logger.info("Database connection has been established successfully.");
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    logger.error("Unable to connect to the database:", error);
     process.exit(1);
   }
 }
