@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
 });
 
 // User routes
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 
 // Post routes
 app.use("/api/post", postRoutes);
