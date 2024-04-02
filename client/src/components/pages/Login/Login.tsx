@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import google from "../../../assets/icons/google.svg";
 import bgImage from "../../../assets/img/bg-image.jpg";
 import SignupModal from "./components/SignupModal";
+import Overlay from "./components/Overlay";
+import GoogleLoginComponent from "./components/GoogleLoginComponent";
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +37,7 @@ const Login: React.FC = () => {
       setError("An error occurred while logging in");
     }
   };
-
+  
   return (
     <div
       className="flex items-center justify-center min-h-screen bg-cover bg-center"
@@ -49,6 +52,7 @@ const Login: React.FC = () => {
             <button className="flex text-xs font-medium text-white items-center justify-center bg-customLightBlue hover:bg-customBlue active:bg-customLightBlue w-full py-2 rounded transition duration-200">
               <img className="w-6 mx-3 bg-white rounded-full" src={google} />
               Log in with Google
+              <a href="http://localhost:3000/api/auth/google"></a>
             </button>
           </div>
           <div className="inline-flex items-center justify-center py-2">
@@ -89,7 +93,12 @@ const Login: React.FC = () => {
           </span>
         </div>
       </div>
-      {isSignupModalOpen && <SignupModal onClose={toggleSignupModal} />}
+      {isSignupModalOpen && (
+        <>
+          <Overlay onClose={toggleSignupModal} isOpen={isSignupModalOpen} />
+          <SignupModal onClose={toggleSignupModal} isOpen={false} />
+        </>
+      )}
     </div>
   );
 };
