@@ -1,29 +1,30 @@
-const User = require("./user");
-const Post = require("./post");
-const Like = require("./like");
-const Event = require("./event");
-const Comment = require("./comment");
+require("dotenv").config();
+const config = {
+  development: {
+    database: {
+      url: process.env.DEV_DATABASE_URL,
+      dialect: "postgres",
+    },
+    server: {
+      port: process.env.PORT || 3000,
+    },
+  },
+  production: {
+    database: {
+      dialect: "postgres",
+      host: "production_host",
+      port: 3333,
+      username: "production_user",
+      password: "production_password",
+      database: "production_db",
+    },
 
-// A user can have many posts
-User.hasMany(Post, { as: "posts", foreignKey: "userId" });
-Post.belongsTo(User, { as: "user", foreignKey: "userId" });
-
-// A user can have many likes
-User.hasMany(Like, { as: "likes", foreignKey: "userId" });
-Like.belongsTo(User, { as: "user", foreignKey: "userId" });
-
-// A user can have many events
-User.hasMany(Event, { as: "events", foreignKey: "userId" });
-Event.belongsTo(User, { as: "user", foreignKey: "userId" });
-
-// A user can have many comments
-User.hasMany(Comment, { as: "comments", foreignKey: "userId" });
-Comment.belongsTo(User, { as: "user", foreignKey: "userId" });
-
-module.exports = {
-  User,
-  Post,
-  Like,
-  Event,
-  Comment,
+    server: {
+      port: process.env.PORT || 3000,
+    },
+  },
 };
+
+const env = process.env.NODE_ENV || "development";
+
+module.exports = config[env];

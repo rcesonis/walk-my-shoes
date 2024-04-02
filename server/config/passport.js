@@ -1,7 +1,34 @@
+require("dotenv").config();
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const User = require("../sequelize/models/user");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:3000/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const [user, created] = await User.findOrCreate({
+          where: { googleId: profile.id },
+          defaults: {
+            name: profile.displayName, // Save the user's name
+            email: profile.emails[0].value, // Save the user's email
+          },
+        });
+
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
+);
 
 passport.use(
   new LocalStrategy(
