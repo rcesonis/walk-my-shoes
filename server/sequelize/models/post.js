@@ -17,7 +17,6 @@ Post.init(
   {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    isPublic: DataTypes.BOOLEAN,
     userId: DataTypes.INTEGER,
   },
   {

@@ -3,11 +3,11 @@ const router = express.Router();
 const ensureAuthenticated = require("../../middleware/auth");
 const postController = require("../../controllers/postController");
 
-// Unprotected route
-router.get("/public", postController.getPublicPosts);
+// Get all posts Protected route
+router.get("/", ensureAuthenticated, postController.getPosts);
 
-// Protected route
-router.get("/private", ensureAuthenticated, postController.getPrivatePosts);
+// Get posts by ID
+router.get("/:id", ensureAuthenticated, postController.getPostsById);
 
 // Create a new post
 router.post("/", ensureAuthenticated, postController.createPost);
