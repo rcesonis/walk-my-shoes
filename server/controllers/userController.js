@@ -26,3 +26,23 @@ exports.register = async (req, res) => {
 exports.login = (req, res) => {
   res.json({ message: "Logged in successfully", user: req.user });
 };
+
+exports.logout = (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      logger.error("Logout error:", err.message);
+      return res
+        .status(500)
+        .json({ message: "Could not log out, please try again" });
+    }
+    req.session.destroy((err) => {
+      if (err) {
+        logger.error("Session destruction error:", err.message);
+        return res
+          .status(500)
+          .json({ message: "Could not log out, please try again" });
+      }
+      res.json({ message: "Logged out successfully" });
+    });
+  });
+};
