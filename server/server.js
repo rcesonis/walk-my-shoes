@@ -78,9 +78,6 @@ app.get("/auth/protected", isLoggedIn, (req, res) => {
   res.json({ message: `Welcome ${user}! You are authenticated`, name: user });
 });
 
-// Logout route
-// app.get("/api/user/logout", userRoutes.logout);
-
 // Error handling middleware
 app.use(errorHandler);
 
