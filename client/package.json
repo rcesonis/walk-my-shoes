@@ -29,6 +29,7 @@
     "vite-plugin-windicss": "^1.9.3"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.2"
+    "@reduxjs/toolkit": "^2.2.2",
+    "react-router-dom": "^6.22.3"
   }
 }
