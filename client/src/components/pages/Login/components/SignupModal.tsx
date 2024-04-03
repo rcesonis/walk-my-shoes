@@ -47,10 +47,10 @@ const SignupModal: React.FC<Props> = ({ onClose }) => {
             Create Account
           </h2>
           <div className="flex justify-center">
-            <button className="flex text-xs font-medium text-white items-center justify-center bg-customLightBlue hover:bg-customBlue active:bg-customLightBlue w-full py-2 rounded transition duration-200">
+            <a href="http://localhost:3000/auth/google" className="flex text-xs font-medium text-white items-center justify-center bg-customLightBlue hover:bg-customBlue active:bg-customLightBlue w-full py-2 rounded transition duration-200">
               <img className="w-6 mx-3 bg-white rounded-full" src={google} alt="Google Icon" />
-              <a href="http://localhost:3000/api/auth/google">Sign up with Google</a>
-            </button>
+              Sign up with Google
+            </a>
           </div>
           <div className="inline-flex items-center justify-center py-2">
             <hr className="w-64 h-px my-8 border-0 bg-gray-700" />
