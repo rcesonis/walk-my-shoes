@@ -15,9 +15,6 @@ module.exports = {
       content: {
         type: Sequelize.STRING,
       },
-      isPublic: {
-        type: Sequelize.BOOLEAN,
-      },
       userId: {
         type: Sequelize.INTEGER,
         references: {

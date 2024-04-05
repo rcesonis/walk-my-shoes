@@ -10,4 +10,7 @@ router.post("/register", userController.register);
 
 // Login route
 router.post("/login", passport.authenticate("local"), userController.login);
+
+// Logout route
+router.get("/logout", userController.logout);
 module.exports = router;
