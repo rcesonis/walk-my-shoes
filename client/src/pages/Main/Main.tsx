@@ -1,10 +1,10 @@
-import React from 'react'
+import Navigation from "../../components/navigation/Navigation"
 
 type Props = {}
 
 const Main: React.FC = (props: Props) => {
   return (
-    <div>Hello, There!</div>
+    <Navigation />
   )
 }
 
