@@ -1,7 +1,17 @@
 const Post = require("../sequelize/models/post");
 
 exports.getPosts = async (req, res, next) => {
-  const posts = await Post.findAll();
+  const page = parseInt(req.query.page) || 1; // default page is 1
+  const pageSize = parseInt(req.query.pageSize) || 10; // default page size is 10
+  const sortOrder = req.query.sortOrder === "desc" ? "DESC" : "ASC"; // default sort order is ascending
+  const sortField = req.query.sortField || "createdAt"; // default sort field is createdAt
+
+  const posts = await Post.findAll({
+    limit: pageSize,
+    offset: (page - 1) * pageSize,
+    order: [[sortField, sortOrder]],
+  });
+
   res.status(200).json(posts);
 };
 
