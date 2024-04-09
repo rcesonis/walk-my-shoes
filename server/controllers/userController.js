@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const User = require("../sequelize/models/user");
 const logger = require("../config/logger");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 exports.register = async (req, res) => {
   try {
@@ -23,8 +25,28 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = (req, res) => {
-  res.json({ message: "Logged in successfully", user: req.user });
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    res.json({ message: "Logged in successfully", user, token });
+  } catch (error) {
+    logger.error("Login error:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }
 };
 
 exports.logout = (req, res) => {

@@ -19,7 +19,7 @@ app.use(cors());
 // Use express-session middleware
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: false,
   })
