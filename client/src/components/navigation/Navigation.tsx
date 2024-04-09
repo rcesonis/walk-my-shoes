@@ -4,10 +4,10 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import user from "../../assets/icons/user.svg"
 
 const navigation = [
-  { name: 'Menu item 1', href: '#', current: true },
-  { name: 'Menu item 1', href: '#', current: false },
-  { name: 'Menu item 1', href: '#', current: false },
-  { name: 'Menu item 1', href: '#', current: false },
+  { name: 'Menu item 1', href: '#menu-item-1', current: true },
+  { name: 'Menu item 2', href: '#menu-item-2', current: false },
+  { name: 'Menu item 3', href: '#menu-item-3', current: false },
+  { name: 'Menu item 4', href: '#menu-item-4', current: false },
 ]
 
 function classNames(...classes: string[]) {
@@ -40,7 +40,7 @@ export default function Example() {
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <a
-                        key={item.name}
+                        key={item.href}
                         href={item.href}
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
@@ -124,7 +124,7 @@ export default function Example() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
+              {navigation.map((item, index) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
