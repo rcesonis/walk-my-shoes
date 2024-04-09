@@ -7,22 +7,12 @@ const api = axios.create({
   },
 });
 
-export const getPublicPosts = async () => {
+export const getPosts = async () => {
   try {
-    const response = await api.get('/api/post/public');
+    const response = await api.get('/api/post');
     return response.data;
   } catch (error) {
-    console.error('Error fetching public posts:', error);
-    throw error;
-  }
-};
-
-export const getPrivatePosts = async () => {
-  try {
-    const response = await api.get('/api/post/private');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching private posts:', error);
+    console.error('Error fetching posts:', error);
     throw error;
   }
 };

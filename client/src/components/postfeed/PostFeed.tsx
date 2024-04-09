@@ -3,7 +3,7 @@ import Post from '../post/Post';
 
 interface PostData {
   id: number;
-  author: string;
+  title: string;
   content: string;
 }
 
@@ -11,9 +11,11 @@ interface PostFeedProps {
   posts: PostData[];
   onUpdatePost: (postId: number, updatedContent: string) => void;
   onDeletePost: (postId: number) => void;
-  onCreatePost: (newPostContent: string) => void;
+  onCreatePost: (newPostContent: string, newPostTitle: string) => void;
   newPostContent: string;
+  newPostTitle: string;
   setNewPostContent: React.Dispatch<React.SetStateAction<string>>;
+  setNewPostTitle: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PostFeed: React.FC<PostFeedProps> = ({
@@ -22,13 +24,16 @@ const PostFeed: React.FC<PostFeedProps> = ({
   onDeletePost,
   onCreatePost,
   newPostContent,
+  newPostTitle,
   setNewPostContent,
+  setNewPostTitle,
 }) => {
   const handleCreatePost = () => {
     if (!newPostContent.trim()) return;
 
-    onCreatePost(newPostContent);
+    onCreatePost(newPostContent, newPostTitle);
     setNewPostContent('');
+    setNewPostTitle('');
   };
 
   return (
@@ -39,7 +44,7 @@ const PostFeed: React.FC<PostFeedProps> = ({
           <Post
             key={post.id}
             id={post.id}
-            author={post.author}
+            title={post.title}
             content={post.content}
             onUpdatePost={onUpdatePost}
             onDeletePost={onDeletePost}
@@ -49,6 +54,12 @@ const PostFeed: React.FC<PostFeedProps> = ({
 
       <h2>Create New Post</h2>
       <div>
+        <input
+          type='text'
+          placeholder='Title'
+          value={newPostTitle}
+          onChange={(e) => setNewPostTitle(e.target.value)}
+        />
         <input
           type='text'
           placeholder='Enter post content'
