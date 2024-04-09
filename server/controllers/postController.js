@@ -21,7 +21,7 @@ exports.getPostsById = async (req, res, next) => {
 };
 
 exports.createPost = async (req, res, next) => {
-  const { title, content, isPublic } = req.body;
+  const { title, content } = req.body;
   const userId = req.user.id;
 
   if (!title || !content) {
