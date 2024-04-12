@@ -1,41 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../../controllers/postController");
-const passport = require("passport");
 
 // Get all posts Protected route
-router.get(
-  "/",
-  passport.authenticate("jwt", { session: false }),
-  postController.getPosts
-);
+router.get("/", ensureAuthenticated, postController.getPosts);
 
 // Get posts by ID
-router.get(
-  "/:id",
-  passport.authenticate("jwt", { session: false }),
-  postController.getPostsById
-);
+router.get("/:id", ensureAuthenticated, postController.getPostsById);
 
 // Create a new post
-router.post(
-  "/",
-  passport.authenticate("jwt", { session: false }),
-  postController.createPost
-);
+router.post("/", ensureAuthenticated, postController.createPost);
 
 // Update an existing post
-router.put(
-  "/:id",
-  passport.authenticate("jwt", { session: false }),
-  postController.updatePost
-);
+router.put("/:id", ensureAuthenticated, postController.updatePost);
 
 // Delete a post
-router.delete(
-  "/:id",
-  passport.authenticate("jwt", { session: false }),
-  postController.deletePost
-);
+router.delete("/:id", ensureAuthenticated, postController.deletePost);
 
 module.exports = router;
