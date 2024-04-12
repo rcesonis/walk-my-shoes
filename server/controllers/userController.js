@@ -50,21 +50,25 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = (req, res) => {
-  req.logout(function (err) {
-    if (err) {
-      logger.error("Logout error:", err.message);
-      return res
-        .status(500)
-        .json({ message: "Could not log out, please try again" });
-    }
-    req.session.destroy((err) => {
-      if (err) {
-        logger.error("Session destruction error:", err.message);
-        return res
-          .status(500)
-          .json({ message: "Could not log out, please try again" });
-      }
-      res.json({ message: "Logged out successfully" });
-    });
-  });
+  res.json({ message: "Please remove the JWT on the client-side to log out" });
 };
+
+// exports.logout = (req, res) => {
+//   req.logout(function (err) {
+//     if (err) {
+//       logger.error("Logout error:", err.message);
+//       return res
+//         .status(500)
+//         .json({ message: "Could not log out, please try again" });
+//     }
+//     req.session.destroy((err) => {
+//       if (err) {
+//         logger.error("Session destruction error:", err.message);
+//         return res
+//           .status(500)
+//           .json({ message: "Could not log out, please try again" });
+//       }
+//       res.json({ message: "Logged out successfully" });
+//     });
+//   });
+// };
