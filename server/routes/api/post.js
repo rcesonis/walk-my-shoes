@@ -4,7 +4,7 @@ const ensureAuthenticated = require('../../middleware/auth');
 const postController = require('../../controllers/postController');
 
 // Get all posts Protected route
-router.get('/', ensureAuthenticated, postController.getPosts);
+router.get('/', postController.getPosts);
 
 // Get posts by ID
 router.get('/:id', ensureAuthenticated, postController.getPostsById);

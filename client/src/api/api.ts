@@ -4,9 +4,9 @@ const api = axios.create({
   baseURL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
+    authorization: `Bearer ${localStorage.getItem('token')}`,
   },
 });
-
 export const getPosts = async () => {
   try {
     const response = await api.get('/api/post');

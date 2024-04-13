@@ -4,6 +4,7 @@ import google from '../../assets/icons/google.svg';
 import bgImage from '../../assets/img/bg-image.jpg';
 import SignupModal from './components/SignupModal';
 import Overlay from './components/Overlay';
+import axios from 'axios';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -18,14 +19,13 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      if (response.ok) {
+      const response = await axios.post(
+        'http://localhost:3000/api/user/login',
+        { email, password }
+      );
+      localStorage.setItem('token', response.data.token);
+      if (response.data.token) {
+        console.log('test2', response);
         navigate('main');
       } else {
         setError('Invalid username or password');
