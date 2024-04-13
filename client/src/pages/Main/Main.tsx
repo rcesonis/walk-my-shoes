@@ -4,10 +4,10 @@ import PostFeed from "../../components/postfeed/PostFeed";
 import { getPosts, updatePost, deletePost, createPost } from "../../api/api";
 
 const Main: React.FC = () => {
+  const token = localStorage.getItem("token");
   const [posts, setPosts] = useState<any[]>([]);
   const [newPostContent, setNewPostContent] = useState<string>("");
   const [newPostTitle, setNewPostTitle] = useState<string>("");
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -20,7 +20,7 @@ const Main: React.FC = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [token]);
 
   const handleUpdatePost = async (postId: number, updatedContent: string) => {
     try {

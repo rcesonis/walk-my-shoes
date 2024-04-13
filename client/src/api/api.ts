@@ -16,7 +16,6 @@ export const getPosts = async (token: string) => {
   return response.data;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createPost = async (postData: any, token: string) => {
   try {
     const response = await api.post("/api/post", postData, {
