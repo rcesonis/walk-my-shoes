@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import Navigation from '../../components/navigation/Navigation';
-import PostFeed from '../../components/postfeed/PostFeed';
-import { getPosts, updatePost, deletePost, createPost } from '../../api/api';
+import React, { useEffect, useState } from "react";
+import Navigation from "../../components/navigation/Navigation";
+import PostFeed from "../../components/postfeed/PostFeed";
+import { getPosts, updatePost, deletePost, createPost } from "../../api/api";
 
 const Main: React.FC = () => {
   const [posts, setPosts] = useState<any[]>([]);
-  const [newPostContent, setNewPostContent] = useState<string>('');
-  const [newPostTitle, setNewPostTitle] = useState<string>('');
-
+  const [newPostContent, setNewPostContent] = useState<string>("");
+  const [newPostTitle, setNewPostTitle] = useState<string>("");
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const fetchedPosts = await getPosts();
+        const fetchedPosts = await getPosts(token || "");
         setPosts(fetchedPosts);
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error("Error fetching posts:", error);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [token]);
 
   const handleUpdatePost = async (postId: number, updatedContent: string) => {
     try {
@@ -47,15 +47,18 @@ const Main: React.FC = () => {
     if (!newPostContent.trim()) return;
 
     try {
-      const newPost = await createPost({
-        content: newPostContent,
-        title: newPostTitle,
-      });
+      const newPost = await createPost(
+        {
+          content: newPostContent,
+          title: newPostTitle,
+        },
+        token || ""
+      );
       setPosts((prevPosts) => [...prevPosts, newPost]);
-      setNewPostContent('');
-      setNewPostTitle('');
+      setNewPostContent("");
+      setNewPostTitle("");
     } catch (error) {
-      console.error('Error creating post:', error);
+      console.error("Error creating post:", error);
     }
   };
 
