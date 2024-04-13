@@ -36,8 +36,9 @@ const PostFeed: React.FC<PostFeedProps> = ({
     setNewPostTitle('');
   };
 
+  console.log('posts:', posts);
   return (
-    <div>
+    <div className='dark:bg-red-500 bg-blue-500'>
       <h1>Public Posts</h1>
       <ul>
         {posts.map((post) => (

@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import google from "../../assets/icons/google.svg";
-import bgImage from "../../assets/img/bg-image.jpg";
-import SignupModal from "./components/SignupModal";
-import Overlay from "./components/Overlay";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import google from '../../assets/icons/google.svg';
+import bgImage from '../../assets/img/bg-image.jpg';
+import SignupModal from './components/SignupModal';
+import Overlay from './components/Overlay';
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
