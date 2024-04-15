@@ -1,8 +1,5 @@
-import React from 'react';
-
 interface PostProps {
   id: number;
-  title: string;
   content: string;
   onUpdatePost: (postId: number, updatedContent: string) => void;
   onDeletePost: (postId: number) => void;
@@ -10,7 +7,6 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({
   id,
-  title,
   content,
   onUpdatePost,
   onDeletePost,
@@ -25,11 +21,9 @@ const Post: React.FC<PostProps> = ({
   };
 
   return (
-    <li>
+    <li className=''>
       <div>
-        <strong>{title}</strong>: {content}
-      </div>
-      <div>
+        <p>{content}</p>
         <button onClick={handleUpdateClick}>Update</button>
         <button onClick={handleDeleteClick}>Delete</button>
       </div>

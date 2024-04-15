@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import Navigation from "../../components/navigation/Navigation";
-import PostFeed from "../../components/postfeed/PostFeed";
-import { getPosts, updatePost, deletePost, createPost } from "../../api/api";
+import React, { useEffect, useState } from 'react';
+import MainNavigation from '../../components/navigation/MainNavigation';
+import PostFeed from '../../components/postfeed/PostFeed';
+import { getPosts, updatePost, deletePost, createPost } from '../../api/api';
 
-const Main: React.FC = () => {
+const MainPage: React.FC = () => {
   const [posts, setPosts] = useState<any[]>([]);
-  const [newPostContent, setNewPostContent] = useState<string>("");
-  const [newPostTitle, setNewPostTitle] = useState<string>("");
-  const token = localStorage.getItem("token");
+  const [newPostContent, setNewPostContent] = useState<string>('');
+  const [newPostTitle, setNewPostTitle] = useState<string>('');
+  const token = localStorage.getItem('token');
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const fetchedPosts = await getPosts(token || "");
+        const fetchedPosts = await getPosts(token || '');
         setPosts(fetchedPosts);
       } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error('Error fetching posts:', error);
       }
     };
 
@@ -52,19 +52,19 @@ const Main: React.FC = () => {
           content: newPostContent,
           title: newPostTitle,
         },
-        token || ""
+        token || ''
       );
       setPosts((prevPosts) => [...prevPosts, newPost]);
-      setNewPostContent("");
-      setNewPostTitle("");
+      setNewPostContent('');
+      setNewPostTitle('');
     } catch (error) {
-      console.error("Error creating post:", error);
+      console.error('Error creating post:', error);
     }
   };
 
   return (
     <div>
-      <Navigation />
+      <MainNavigation />
       <PostFeed
         posts={posts}
         onUpdatePost={handleUpdatePost}
@@ -72,11 +72,9 @@ const Main: React.FC = () => {
         onCreatePost={handleCreatePost}
         newPostContent={newPostContent}
         setNewPostContent={setNewPostContent}
-        newPostTitle={newPostTitle}
-        setNewPostTitle={setNewPostTitle}
       />
     </div>
   );
 };
 
-export default Main;
+export default MainPage;

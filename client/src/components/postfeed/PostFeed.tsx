@@ -1,9 +1,8 @@
-import React from 'react';
 import Post from '../post/Post';
+import CreatePost from '../../pages/MainPage/components/CreatePost';
 
 interface PostData {
   id: number;
-  title: string;
   content: string;
 }
 
@@ -11,11 +10,9 @@ interface PostFeedProps {
   posts: PostData[];
   onUpdatePost: (postId: number, updatedContent: string) => void;
   onDeletePost: (postId: number) => void;
-  onCreatePost: (newPostContent: string, newPostTitle: string) => void;
+  onCreatePost: (newPostContent: string) => void;
   newPostContent: string;
-  newPostTitle: string;
   setNewPostContent: React.Dispatch<React.SetStateAction<string>>;
-  setNewPostTitle: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PostFeed: React.FC<PostFeedProps> = ({
@@ -24,51 +21,34 @@ const PostFeed: React.FC<PostFeedProps> = ({
   onDeletePost,
   onCreatePost,
   newPostContent,
-  newPostTitle,
   setNewPostContent,
-  setNewPostTitle,
 }) => {
   const handleCreatePost = () => {
     if (!newPostContent.trim()) return;
 
-    onCreatePost(newPostContent, newPostTitle);
+    onCreatePost(newPostContent);
     setNewPostContent('');
-    setNewPostTitle('');
   };
 
   console.log('posts:', posts);
   return (
-    <div className='dark:bg-red-500 bg-blue-500'>
-      <h1>Public Posts</h1>
-      <ul>
+    <div className='flex flex-col m-4 items-center'>
+      <CreatePost
+        newPostContent={newPostContent}
+        handleCreatePost={handleCreatePost}
+        setNewPostContent={setNewPostContent}
+      />
+      <ul className='flex mx-5 bg-customMediumGray max-w-2xl border'>
         {posts.map((post) => (
           <Post
             key={post.id}
             id={post.id}
-            title={post.title}
             content={post.content}
             onUpdatePost={onUpdatePost}
             onDeletePost={onDeletePost}
           />
         ))}
       </ul>
-
-      <h2>Create New Post</h2>
-      <div>
-        <input
-          type='text'
-          placeholder='Title'
-          value={newPostTitle}
-          onChange={(e) => setNewPostTitle(e.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='Enter post content'
-          value={newPostContent}
-          onChange={(e) => setNewPostContent(e.target.value)}
-        />
-        <button onClick={handleCreatePost}>Create Post</button>
-      </div>
     </div>
   );
 };
